@@ -5,10 +5,7 @@ import com.example.javapractice.TODOList.entity.Todo;
 import com.example.javapractice.TODOList.service.TodoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,6 +44,24 @@ public class TodoController {
     public String saveTodo(@ModelAttribute("Todo")Todo theTodo){
 
         todoService.save(theTodo);
+
+        return "redirect:/todos/list";
+    }
+
+    @PostMapping("/showFormForUpdate")
+    public String showFormForUpdate(@RequestParam("todoId")int theId, Model theModel){
+
+        Todo theTodo = todoService.findById(theId);
+
+        theModel.addAttribute("todo",theTodo);
+
+        return "todos/todo-form";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@RequestParam("todoId") int theId){
+
+        todoService.deleteById(theId);
 
         return "redirect:/todos/list";
     }
