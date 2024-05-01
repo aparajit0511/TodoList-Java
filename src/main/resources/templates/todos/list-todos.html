@@ -23,6 +23,23 @@
                 <td th:text="${tempTodos.taskName}" />
                 <td th:text="${tempTodos.description}" />
 
+                <td>
+                    <form action="#" th:action="@{/todos/showFormForUpdate}" method="POST">
+                        <input type="hidden" name="todoId" th:value="${tempTodos.id}" />
+                        <button type="submit" class="btn btn-info btn-sm">Update</button>
+
+                    </form>
+
+                    <form action="#" th:action="@{/todos/delete}" method="POST">
+                        <input type="hidden" name="todoId" th:value="${tempTodos.id}" />
+                        <button type="submit" class="btn btn-danger btn-sm"
+                                onclick="if (!(confirm('Are you sure you want to delete this todo?'))) return false">
+                            Delete
+                        </button>
+
+                    </form>
+                </td>
+
             </tr>
         </tbody>
     </table>
